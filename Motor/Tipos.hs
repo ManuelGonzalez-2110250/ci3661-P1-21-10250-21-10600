@@ -77,3 +77,25 @@ data MundoRaw = MundoRaw
   , rawSalas  :: [(Int, [String])]  -- Línea de inicio del bloque y sus líneas internas
   , rawObjetos:: [(Int, [String])]
   } deriving (Show)
+
+data Comando
+  = Ir Direccion
+  | Mirar
+  | Tomar String
+  | Soltar String
+  | Examinar String
+  | Inventario
+  | Ayuda
+  | Salir
+  | Guardar String
+  | Cargar String
+  deriving (Show, Eq)
+
+-- Función auxiliar para mostrar direcciones en minúscula
+mostrarDireccion :: Direccion -> String
+mostrarDireccion Norte  = "norte"
+mostrarDireccion Sur    = "sur"
+mostrarDireccion Este   = "este"
+mostrarDireccion Oeste  = "oeste"
+mostrarDireccion Arriba = "arriba"
+mostrarDireccion Abajo  = "abajo"
