@@ -42,13 +42,14 @@ data Mundo = Mundo
   -- Usamos Map para buscar salas y objetos por su ID en O(log n)
   , mundoSalas   :: M.Map String Sala
   , mundoObjetos :: M.Map String Objeto
+  , mundoTurnos  :: Int
   } deriving (Eq, Show)
 
 -- Errores del mundo (para cumplir con V1 a V10)
 data ErrorMundo 
   = ErrorSintaxis Int String         -- V1: Línea y descripción
-  | ObjetoDuplicado String           -- V2
-  | SalaDuplicada String             -- V2
+  | ObjetoDuplicado Int String       -- V2
+  | SalaDuplicada Int String         -- V2
   | SalaInexistenteEnSalida String   -- V3
   | ObjetoRequeridoInexistente String-- V4
   | SalidaDuplicadaEnSala String     -- V5
@@ -71,13 +72,20 @@ data Estado = Estado
 type LineaConNumero = (Int, String)
 
 data MundoRaw = MundoRaw
-  { rawTitulo :: Maybe String
-  , rawInicio :: Maybe String
-  , rawMeta   :: Maybe String
-  , rawSalas  :: [(Int, [String])]  -- Línea de inicio del bloque y sus líneas internas
-  , rawObjetos:: [(Int, [String])]
+  { rawTitulo :: Maybe (Int, String)
+  , rawInicio :: Maybe (Int, String)
+  , rawMeta   :: Maybe (Int, String)
+  , rawSalas  :: [(Int, String)] 
+  , rawObjetos:: [(Int, String)]
+  , rawSalidas:: [(Int, String)]
+  , rawTurnos :: Maybe (Int,String)
   } deriving (Show)
-
+  
+data BloqueSala = BloqueSala
+    { bSalaNombre    :: Maybe (Int, String)
+    , bLineasBloque  :: [LineaConNumero]
+    }
+    
 data Comando
   = Ir Direccion
   | Mirar
@@ -99,3 +107,4 @@ mostrarDireccion Este   = "este"
 mostrarDireccion Oeste  = "oeste"
 mostrarDireccion Arriba = "arriba"
 mostrarDireccion Abajo  = "abajo"
+
