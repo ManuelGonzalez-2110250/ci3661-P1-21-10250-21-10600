@@ -50,12 +50,12 @@ data ErrorMundo
   = ErrorSintaxis Int String         -- V1: Línea y descripción
   | ObjetoDuplicado Int String       -- V2
   | SalaDuplicada Int String         -- V2
-  | SalaInexistenteEnSalida String   -- V3
-  | ObjetoRequeridoInexistente String-- V4
-  | SalidaDuplicadaEnSala String     -- V5
-  | ObjetoEnSalaInexistente String   -- V6
-  | ObjetoEnMultiplesSalas String    -- V7
-  | InicioMetaInexistente String     -- V8
+  | SalaInexistenteEnSalida Int String   -- V3
+  | ObjetoRequeridoInexistente Int String-- V4
+  | SalidaDuplicadaEnSala Int String     -- V5
+  | ObjetoEnSalaInexistente Int String   -- V6
+  | ObjetoEnMultiplesSalas Int String    -- V7
+  | InicioMetaInexistente Int String     -- V8
   | SalaInalcanzable String          -- V9
   | ObjetoInconseguible String       -- V10
   deriving (Eq, Show)
