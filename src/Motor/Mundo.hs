@@ -72,9 +72,13 @@ extraerObjetosGlobales (bloque:resto) =
 agruparPorSeparador :: [LineaConNumero] -> [[LineaConNumero]]
 agruparPorSeparador [] = []
 agruparPorSeparador xs =  
-    let (bloque, resto) = span (\(_, l) -> trim l /= "--") xs
+    let esSeparador l = 
+            let t = trim l 
+            in length t >= 2 && all (== '-') t 
+            
+        (bloque, resto) = span (\(_, l) -> not (esSeparador l)) xs
     in case resto of
-         []             -> [bloque]
+         []               -> [bloque]
          (_ : restoResto) -> bloque : agruparPorSeparador restoResto
 
 -- Función para extrar la información del mundo para un bosquejo del mundo
@@ -111,7 +115,10 @@ obtenerBloques contenido =
   where
     esUtil (_, l) =  
       let t = trim l  
-      in not (null t) && head t /= '#'
+      -- in not (null t) && head t /= '#'
+      in case t of
+           (c:_) -> c /= '#'
+           []    -> False
       
 -- Ve cada línea y se busca : para separar  el comando del resto
 separarClaveValor :: String -> Maybe (String, String)

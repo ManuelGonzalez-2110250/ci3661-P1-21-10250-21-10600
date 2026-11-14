@@ -1,4 +1,4 @@
-module Motor.Nucleo (estadoInicial, ejecutar, metaCumplida) where
+module Motor.Nucleo (estadoInicial, ejecutar, metaCumplida, sinTurnos) where
 
 import Motor.Tipos
 import qualified Data.Map as M
@@ -10,8 +10,18 @@ estadoInicial m = Estado
     { estadoMundo = m
     , estadoSalaActual = mundoInicio m
     , estadoInventario = []
-    , turnosRestantes = 0 -- Nos toco la variante de turnos, se pone el valor inicial aquí
+    , turnosRestantes = 100 -- Nos toco la variante de turnos, se pone el valor inicial aquí
     }
+
+-- | Función auxiliar para gastar un turno si el juego tiene turnos limitados.
+gastarTurno :: Estado -> Estado
+gastarTurno st 
+    | turnosRestantes st > 0 = st { turnosRestantes = turnosRestantes st - 1 }
+    | otherwise              = st -- Si es -1 o 0, no hace nada
+
+-- | Verifica si se acabaron los turnos
+sinTurnos :: Estado -> Bool
+sinTurnos st = turnosRestantes st == 0   
 
 -- | Busca una salida en una dirección específica.
 buscarSalida :: Direccion -> [Salida] -> Maybe Salida
@@ -36,13 +46,13 @@ describirSala st =
 ejecutar :: Comando -> Estado -> ([String], Estado)
 ejecutar cmd st = case cmd of
     Mirar -> (describirSala st, st)
-    
+
     Ir dir -> 
         let m = estadoMundo st
             salaId = estadoSalaActual st
             sala = (mundoSalas m) M.! salaId
         in case buscarSalida dir (salaSalidas sala) of
-            Nothing -> (["No hay salida hacia " ++ mostrarDireccion dir], st)
+            Nothing -> (["No hay salida hacia " ++ mostrarDireccion dir], st) -- Fallar no gasta turno
             Just salida -> 
                 case salidaRequiere salida of
                     Just req | req `notElem` estadoInventario st ->
@@ -50,7 +60,8 @@ ejecutar cmd st = case cmd of
                     _ ->
                         let nuevaSalaId = salidaDestino salida
                             st' = st { estadoSalaActual = nuevaSalaId }
-                        in (["Te mueves hacia " ++ mostrarDireccion dir] ++ describirSala st', st')
+                            -- Moverse SÍ gasta turno
+                        in (["Te mueves hacia " ++ mostrarDireccion dir] ++ describirSala st', gastarTurno st')                        
                         
     Tomar obj ->
         let m = estadoMundo st

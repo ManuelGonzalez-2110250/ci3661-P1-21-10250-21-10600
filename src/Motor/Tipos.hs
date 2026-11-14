@@ -11,14 +11,14 @@ data Direccion
 data Objeto = Objeto 
   { objId   :: String
   , objDesc :: String
-  } deriving (Eq, Show)
+  } deriving (Eq, Show, Read)
 
 -- Una Salida desde una sala hacia otra
 data Salida = Salida 
   { salidaDir      :: Direccion
   , salidaDestino  :: String         -- ID de la sala a la que lleva
   , salidaRequiere :: Maybe String   -- Objeto opcional necesario para cruzar
-  } deriving (Eq, Show)
+  } deriving (Eq, Show, Read)
 
 -- Una Sala (Vértice del grafo)
 data Sala = Sala 
@@ -26,13 +26,13 @@ data Sala = Sala
   , salaDesc    :: String
   , salaSalidas :: [Salida]
   , salaObjetos :: [String]         -- IDs de los objetos que están en esta sala
-  } deriving (Eq, Show)
+  } deriving (Eq, Show, Read)
 
 -- Tipos de Meta posibles según el enunciado
 data Meta 
   = LlegarASala String               -- llegar a <sala>
   | LlevarObjetoASala String String  -- llevar <objeto> a <sala>
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 -- El Mundo completo (El Grafo en sí)
 data Mundo = Mundo 
@@ -43,7 +43,7 @@ data Mundo = Mundo
   , mundoSalas   :: M.Map String Sala
   , mundoObjetos :: M.Map String Objeto
   , mundoTurnos  :: Int
-  } deriving (Eq, Show)
+  } deriving (Eq, Show, Read)
 
 -- Errores del mundo (para cumplir con V1 a V10)
 data ErrorMundo 
@@ -58,7 +58,7 @@ data ErrorMundo
   | InicioMetaInexistente Int String     -- V8
   | SalaInalcanzable String          -- V9
   | ObjetoInconseguible String       -- V10
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 -- El Estado actual de la partida (para cuando el usuario esté jugando)
 data Estado = Estado 
@@ -66,7 +66,7 @@ data Estado = Estado
   , estadoSalaActual :: String       -- ID de la sala donde está el jugador
   , estadoInventario :: [String]     -- IDs de los objetos que lleva el jugador
   , turnosRestantes  :: Int          -- Turnos restantes del jugador
-  } deriving (Eq, Show)
+  } deriving (Eq, Show, Read)
   
   --tipos auxiliares
 type LineaConNumero = (Int, String)
@@ -79,7 +79,7 @@ data MundoRaw = MundoRaw
   , rawObjetos:: [(Int, String)]
   , rawSalidas:: [(Int, String)]
   , rawTurnos :: Maybe (Int,String)
-  } deriving (Show)
+  } deriving (Show, Read)
   
 data BloqueSala = BloqueSala
     { bSalaNombre    :: Maybe (Int, String)
@@ -97,7 +97,7 @@ data Comando
   | Salir
   | Guardar String
   | Cargar String
-  deriving (Show, Eq)
+  deriving (Show, Eq, Read)
 
 -- Función auxiliar para mostrar direcciones en minúscula
 mostrarDireccion :: Direccion -> String
