@@ -9,7 +9,9 @@ library
     exposed-modules:    Motor.Tipos
                         Motor.Mundo
                         Motor.Comandos
-                        Motor.Nucleo                        
+                        Motor.Nucleo 
+                        Motor.Persistencia
+                        Motor.Reconocedor                       
     hs-source-dirs:     src
     build-depends:      base >= 4.7 && < 5
                       , containers

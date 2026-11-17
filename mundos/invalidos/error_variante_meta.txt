@@ -1,0 +1,12 @@
+# Errores esperados: Variante 2 (Turnos no numéricos), V8 (Meta con objeto/sala inexistente), V10 (Objeto inconseguible)
+MUNDO: Mundo sin Salida
+INICIO: cuarto
+META: llevar tesoro a castillo
+TURNOS: diez
+---
+OBJETO: tesoro
+DESC: El tesoro.
+---
+SALA: cuarto
+DESC: Un cuarto vacío.
+SALIDA: norte -> cuarto

@@ -10,7 +10,7 @@ estadoInicial m = Estado
     { estadoMundo = m
     , estadoSalaActual = mundoInicio m
     , estadoInventario = []
-    , turnosRestantes = 100 -- Nos toco la variante de turnos, se pone el valor inicial aquí
+    , turnosRestantes = mundoTurnos m -- Nos toco la variante de turnos, se pone el valor inicial aquí
     }
 
 -- | Función auxiliar para gastar un turno si el juego tiene turnos limitados.

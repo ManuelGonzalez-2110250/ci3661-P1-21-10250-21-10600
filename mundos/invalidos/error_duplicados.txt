@@ -1,0 +1,19 @@
+# Errores esperados: V2 (Duplicado), V3 (Salida a sala inexistente), V4 (Objeto requerido inexistente)
+MUNDO: Mundo Duplicado
+INICIO: sala1
+META: llegar a sala1
+---
+OBJETO: llave
+DESC: Una llave.
+---
+OBJETO: llave
+DESC: Otra llave.
+---
+SALA: sala1
+DESC: Sala uno.
+SALIDA: norte -> sala_fantasma
+SALIDA: sur -> sala2 requiere espada
+---
+SALA: sala2
+DESC: Sala dos.
+SALIDA: norte -> sala1

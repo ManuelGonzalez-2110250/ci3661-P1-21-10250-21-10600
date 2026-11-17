@@ -1,0 +1,23 @@
+# Errores esperados: V5 (Salida duplicada), V6 (Objeto en sala inexistente), V7 (Objeto en multiples salas), V9 (Sala inalcanzable)
+MUNDO: Mundo Roto
+INICIO: inicio
+META: llegar a inicio
+---
+OBJETO: moneda
+DESC: Brilla.
+---
+SALA: inicio
+DESC: Aquí empieza todo.
+SALIDA: norte -> final
+SALIDA: norte -> final
+OBJETO: moneda
+---
+SALA: final
+DESC: Aquí termina todo.
+SALIDA: sur -> inicio
+OBJETO: moneda
+OBJETO: fantasma
+---
+SALA: isla
+DESC: Una sala a la que nadie puede llegar.
+SALIDA: sur -> inicio

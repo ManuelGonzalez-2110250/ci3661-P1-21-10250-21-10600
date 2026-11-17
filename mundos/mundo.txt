@@ -1,0 +1,61 @@
+# Mundo original para el Proyecto 1
+# Variante 2: Turnos. El jugador tiene 15 turnos para escapar.
+
+MUNDO: Fuga de Datos
+INICIO: entrada
+META: llevar usb_drive a helipuerto
+TURNOS: 15
+---
+OBJETO: tarjeta
+DESC: Una tarjeta de acceso magnética que dice "Visita".
+---
+OBJETO: palanca
+DESC: Una palanca de hierro oxidada. Podría servir para romper algo.
+---
+OBJETO: usb_drive
+DESC: Una memoria USB con los archivos secretos de la corporación.
+---
+OBJETO: cafe
+DESC: Un café frío de la máquina expendedora. No sirve para nada.
+---
+SALA: entrada
+DESC: La recepción del edificio. Hay un guardia distraído.
+SALIDA: norte -> pasillo
+OBJETO: tarjeta
+---
+SALA: pasillo
+DESC: Un pasillo con luces parpadeantes.
+SALIDA: sur -> entrada
+SALIDA: norte -> seguridad requiere tarjeta
+SALIDA: este -> oficina
+SALIDA: oeste -> bodega
+---
+SALA: bodega
+DESC: Una habitación oscura llena de cajas viejas.
+SALIDA: este -> pasillo
+OBJETO: cafe
+---
+SALA: seguridad
+DESC: La sala de monitores. Hay una palanca tirada en el suelo.
+SALIDA: sur -> pasillo
+SALIDA: este -> servidores
+OBJETO: palanca
+---
+SALA: servidores
+DESC: El corazón de la red. Hay una computadora encendida.
+SALIDA: oeste -> seguridad
+OBJETO: usb_drive
+---
+SALA: oficina
+DESC: La oficina del CEO. Hay una ventana que da al balcón.
+SALIDA: oeste -> pasillo
+SALIDA: este -> balcon requiere palanca
+---
+SALA: balcon
+DESC: El viento sopla fuerte aquí. Hay una escalera hacia arriba.
+SALIDA: oeste -> oficina
+SALIDA: arriba -> helipuerto
+---
+SALA: helipuerto
+DESC: La cima del edificio. El helicóptero te espera.
+SALIDA: abajo -> balcon

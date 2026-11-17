@@ -1,0 +1,14 @@
+mirar
+tomar tarjeta
+inventario
+norte
+norte
+mirar
+tomar palanca
+este
+tomar usb_drive
+oeste
+sur
+este
+este
+arriba
